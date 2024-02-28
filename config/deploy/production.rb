@@ -61,5 +61,10 @@
 #   }
 set :stage, :production
 set :rails_env, :production
-set :branch, “master”
-server “18.60.142.246”, user: “ubuntu”, roles: %w{web app db}
+set :branch, "master"
+server "18.61.21.60", user: "ubuntu", roles: %w{web app db}, ssh_options: {
+	user: "ubuntu",
+	keys: %w(/home/vishal/Downloads/punitawskey.pem),
+	forward_agent: false,
+	auth_methods: %w(publickey password)
+}

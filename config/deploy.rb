@@ -1,4 +1,7 @@
-# # config valid for current version and patch releases of Capistrano
+# Load capistrano-bundler
+# require 'capistrano/bundler'
+
+ # # config valid for current version and patch releases of Capistrano
 # lock "~> 3.18.0"
 
 # set :application, "my_app_name"
@@ -12,6 +15,9 @@
 
 # # Default value for :format is :airbrussh.
 # # set :format, :airbrussh
+
+set :rvm_type, :user                    
+set :rvm_ruby_version, '2.6.5'
 
 # # You can configure the Airbrussh format using :format_options.
 # # These are the defaults.
@@ -40,7 +46,7 @@
 
 
 set :application, "chatapp"
-set :repo_url, "repo_url"
+set :repo_url, "https://github.com/vishalp2021/chatapp.git"
 # restart app by running: touch tmp/restart.txt
 # at server machine
 set :passenger_restart_with_touch, true
@@ -48,7 +54,7 @@ set :rails_env, :development
 set :puma_threads, [4, 16]
 # Don’t change these unless you know what you’re doing
 set :pty, true
-set :use_sudo, false
+set :use_sudo, true
 set :stage, :production
 set :deploy_via, :remote_cache
 set :puma_bind, "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
@@ -99,3 +105,5 @@ before :starting, :check_revision
  after :finishing, :cleanup
  after :finishing, :restart
 end
+
+after 'deploy:updated', 'bundler:install'
