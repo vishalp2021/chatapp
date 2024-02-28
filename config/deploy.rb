@@ -17,7 +17,7 @@
 # # set :format, :airbrussh
 
 set :rvm_type, :user                    
-set :rvm_ruby_version, '2.6.5'
+set :rvm_ruby_version, '3.0.0'
 
 # # You can configure the Airbrussh format using :format_options.
 # # These are the defaults.
