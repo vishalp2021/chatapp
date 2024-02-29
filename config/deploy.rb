@@ -24,10 +24,12 @@ set :rvm_ruby_version, '3.0.0'
 # # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
 # # Default value for :pty is false
-# # set :pty, true
+set :pty, true
 
 # # Default value for :linked_files is []
-# # append :linked_files, "config/database.yml", 'config/master.key'
+set :linked_files, %w(config/master.key)
+
+append :linked_files, "config/master.key"
 
 # # Default value for linked_dirs is []
 # # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "vendor", "storage"
@@ -39,7 +41,7 @@ set :rvm_ruby_version, '3.0.0'
 # # set :local_user, -> { `git config user.name`.chomp }
 
 # # Default value for keep_releases is 5
-# # set :keep_releases, 5
+set :keep_releases, 2
 
 # # Uncomment the following to require manually verifying the host key before first deploy.
 # # set :ssh_options, verify_host_key: :secure
@@ -49,7 +51,7 @@ set :application, "chatapp"
 set :repo_url, "https://github.com/vishalp2021/chatapp.git"
 # restart app by running: touch tmp/restart.txt
 # at server machine
-set :passenger_restart_with_touch, true
+# set :passenger_restart_with_touch, true
 set :rails_env, :development
 set :puma_threads, [4, 16]
 # Don’t change these unless you know what you’re doing
@@ -106,4 +108,4 @@ before :starting, :check_revision
  after :finishing, :restart
 end
 
-after 'deploy:updated', 'bundler:install'
+after 'deploy:updated', 'bundler:install' "deploy:cleanup"
